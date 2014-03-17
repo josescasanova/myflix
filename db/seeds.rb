@@ -20,7 +20,7 @@ video11 = Video.create(title: 'Family Guy', description: "Family guy description
 video12 = Video.create(title: 'Futurama', description: "Futurama description here", small_cover_url: "/tmp/futurama.jpg", large_cover_url: "/tmp/futurama.jpg")
 video13 = Video.create(title: 'South Park', description: "South Park description here", small_cover_url: "/tmp/south_park.jpg", large_cover_url: "/tmp/south_park.jpg")
 video14 = Video.create(title: 'Monk', description: "Monk description here", small_cover_url: "/tmp/monk.jpg", large_cover_url: "/tmp/monk_large.jpg")
-video15 = Video.create(title: 'Monk', description: "Monk description here", small_cover_url: "/tmp/monk.jpg", large_cover_url: "/tmp/monk_large.jpg")
+monk = Video.create(title: 'Monk', description: "Monk description here", small_cover_url: "/tmp/monk.jpg", large_cover_url: "/tmp/monk_large.jpg")
 
 
 comedy = Category.create(name: "Comedy")
@@ -40,4 +40,9 @@ video11.categories << comedy
 video12.categories << comedy
 video13.categories << comedy
 video14.categories << drama
-video15.categories << drama
+monk.categories << drama
+
+jose = User.create(full_name: "Jose Casanova", password: "password", email: "jose@example.com")
+
+Review.create(user: jose, video: monk, rating: 5, description: "This is a really good show")
+Review.create(user: jose, video: monk, rating: 2, description: "This is an ok show")
