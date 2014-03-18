@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Category do 
   it { should have_many(:video_categories) }
   it { should have_many(:videos).through(:video_categories) }
+  it { should validate_presence_of(:name) }
 
   describe "#recent_videos" do
     it "returns the videos in reverse chronical order by created at" do
