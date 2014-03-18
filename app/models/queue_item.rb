@@ -12,10 +12,10 @@ class QueueItem < ActiveRecord::Base
   end
 
   def category_name
-    video.categories.name
+    category.name
   end
 
   def category
-    video.categories
+    video.categories.first
   end
 end
