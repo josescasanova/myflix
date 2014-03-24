@@ -23,7 +23,8 @@
                     = link_to qi.video_title, qi.video
                   %td
                     = button_to "Play", nil, class: "btn btn-default"
-                  %td= qi.rating
+                  %td
+                    = select_tag "queue_items[][rating]", options_for_video_reviews(qi.rating), include_blank: true
                   %td
                     = link_to qi.category_name, qi.category
                   %td
