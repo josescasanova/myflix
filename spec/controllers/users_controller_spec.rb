@@ -21,6 +21,33 @@ describe UsersController do
       it "redirects to the sign in page" do
         expect(response).to redirect_to sign_in_path
       end
+
+      it "makes the user follow the inviter" do
+        alice = Fabricate(:user)
+        # binding.pry
+        # invitation = Invitation.create(inviter: alice, recipient_email: 'joe@example.com', token: '3432454334')
+        invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'joe@example.com')
+        # invitation = Invitation.create(inviter: alice, recipient_email: 'joe2@example.com', token: 'asd23rgfds')
+        post :create, user: {email: 'joe@example.com', password: 'password', full_name: 'Joe Doe'}, invitation_token: invitation.token
+        joe = User.where(email: 'joe@example.com').first
+        expect(joe.follows?(alice)).to be_true
+      end
+
+      it "makes the inviter follow the user" do
+        alice = Fabricate(:user)
+        invitation = Invitation.create(inviter: alice, recipient_email: 'joe@example.com', token: 'asdfsergeas3')
+        post :create, user: {email: 'joe@example.com', password: 'password', full_name: 'Joe Doe'}, invitation_token: invitation.token
+        joe = User.where(email: 'joe@example.com').first
+        expect(alice.follows?(joe)).to be_true
+      end
+
+      it "expires the invitation upon acceptance" do
+        alice = Fabricate(:user)
+        invitation = Invitation.create(inviter: alice, recipient_email: 'joe@example.com', token: 'asd2sdf3dfds')
+        post :create, user: {email: 'joe@example.com', password: 'password', full_name: 'Joe Doe'}, invitation_token: invitation.token
+        joe = User.where(email: 'joe4@example.com').first
+        expect(Invitation.first.token).to be_nil
+      end
     end
 
     context "with invalid input" do
@@ -72,6 +99,31 @@ describe UsersController do
       alice = Fabricate(:user)
       get :show, id: alice.id
       expect(assigns(:user)).to eq(alice)
+    end
+  end
+
+  describe "GET new_with_invitation_token" do
+    it "renders the :new view template" do
+      invitation = Invitation.create(recipient_name: 'Joe Black', recipient_email: 'joe@joejoe.com', message: 'blahblahblah')
+      get :new_with_invitation_token, token: invitation.token
+      expect(response).to render_template :new
+    end
+
+    it "sets @user with recipient's email"  do
+      invitation = Invitation.create(recipient_name: 'Joe Black', recipient_email: 'joe@joejoe.com', message: 'blahblahblah')
+      get :new_with_invitation_token, token: invitation.token
+      expect(assigns(:user).email).to eq(invitation.recipient_email)
+    end
+
+    it "sets @invitation_token" do
+      invitation = Invitation.create(recipient_name: 'Joe Black', recipient_email: 'joe@joejoe.com', message: 'blahblahblah')
+      get :new_with_invitation_token, token: invitation.token
+      expect(assigns(:invitation_token)).to eq(invitation.token)
+    end
+
+    it "redirects to expired token page for invalid tokens" do
+      get :new_with_invitation_token, token: 'asddfg'
+      expect(response).to redirect_to expired_token_path
     end
   end
 end

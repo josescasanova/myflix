@@ -17,8 +17,8 @@ group :development do
   gem 'sqlite3'
   gem 'pry-nav'
   gem 'thin'
-  gem "better_errors"
-  gem "binding_of_caller"
+  gem 'better_errors', '1.0.1'
+  gem 'binding_of_caller'
   gem 'letter_opener'
 end
 
@@ -31,6 +31,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'launchy'
+  gem 'capybara-email'
 end
 
 group :production do
