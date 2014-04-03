@@ -24,10 +24,7 @@ describe UsersController do
 
       it "makes the user follow the inviter" do
         alice = Fabricate(:user)
-        # binding.pry
-        # invitation = Invitation.create(inviter: alice, recipient_email: 'joe@example.com', token: '3432454334')
         invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'joe@example.com')
-        # invitation = Invitation.create(inviter: alice, recipient_email: 'joe2@example.com', token: 'asd23rgfds')
         post :create, user: {email: 'joe@example.com', password: 'password', full_name: 'Joe Doe'}, invitation_token: invitation.token
         joe = User.where(email: 'joe@example.com').first
         expect(joe.follows?(alice)).to be_true
@@ -35,7 +32,7 @@ describe UsersController do
 
       it "makes the inviter follow the user" do
         alice = Fabricate(:user)
-        invitation = Invitation.create(inviter: alice, recipient_email: 'joe@example.com', token: 'asdfsergeas3')
+        invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'joe@example.com')
         post :create, user: {email: 'joe@example.com', password: 'password', full_name: 'Joe Doe'}, invitation_token: invitation.token
         joe = User.where(email: 'joe@example.com').first
         expect(alice.follows?(joe)).to be_true
@@ -43,9 +40,9 @@ describe UsersController do
 
       it "expires the invitation upon acceptance" do
         alice = Fabricate(:user)
-        invitation = Invitation.create(inviter: alice, recipient_email: 'joe@example.com', token: 'asd2sdf3dfds')
+         invitation = Fabricate(:invitation, inviter: alice, recipient_email: 'joe@example.com')
         post :create, user: {email: 'joe@example.com', password: 'password', full_name: 'Joe Doe'}, invitation_token: invitation.token
-        joe = User.where(email: 'joe4@example.com').first
+        joe = User.where(email: 'joe@example.com').first
         expect(Invitation.first.token).to be_nil
       end
     end
