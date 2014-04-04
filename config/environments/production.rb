@@ -6,26 +6,16 @@ Myflix::Application.configure do
   config.action_controller.perform_caching = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_deliveries = true
-  # config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: 'afternoon-refuge-3743.herokuapp.com' }
-  # config.action_mailer.smtp_settings = {
-  # address:              ENV['MAILGUN_SMTP_SERVER'],
-  # port:                 ENV['MAILGUN_SMTP_PORT'],
-  # domain:               'afternoon-refuge-3743.herokuapp.com',
-  # user_name:            ENV['MAILGUN_SMTP_LOGIN'],
-  # password:             ENV['MAILGUN_SMTP_PASSWORD'],
-  # authentication:       'plain',
-  # }
-
-  ActionMailer::Base.smtp_settings = {
-  :port           => ENV['MAILGUN_SMTP_PORT'],
-  :address        => ENV['MAILGUN_SMTP_SERVER'],
-  :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-  :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-  :domain         => 'afternoon-refuge-3743.herokuapp.com',
-  :authentication => :plain,
-}
-ActionMailer::Base.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+  address:              ENV['MAILGUN_SMTP_SERVER'],
+  port:                 ENV['MAILGUN_SMTP_PORT'],
+  domain:               'afternoon-refuge-3743.herokuapp.com',
+  user_name:            ENV['MAILGUN_SMTP_LOGIN'],
+  password:             ENV['MAILGUN_SMTP_PASSWORD'],
+  authentication:       'plain',
+  }
 
   config.serve_static_assets = false
 
@@ -39,4 +29,14 @@ ActionMailer::Base.delivery_method = :smtp
   config.i18n.fallbacks = true
 
   config.active_support.deprecation = :notify
+
+   # ActionMailer::Base.smtp_settings = {
+#   :port           => ENV['MAILGUN_SMTP_PORT'],
+#   :address        => ENV['MAILGUN_SMTP_SERVER'],
+#   :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+#   :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+#   :domain         => 'afternoon-refuge-3743.herokuapp.com',
+#   :authentication => :plain,
+# }
+# ActionMailer::Base.delivery_method = :smtp
 end
