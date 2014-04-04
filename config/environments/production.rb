@@ -5,6 +5,7 @@ Myflix::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
   config.action_mailer.default_url_options = { host: 'afternoon-refuge-3743.herokuapp.com' }
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
   address:              ENV['MAILGUN_SMTP_SERVER'],
   port:                 ENV['MAILGUN_SMTP_PORT'],
@@ -12,8 +13,7 @@ Myflix::Application.configure do
   user_name:            ENV['MAILGUN_SMTP_LOGIN'],
   password:             ENV['MAILGUN_SMTP_PASSWORD'],
   authentication:       'plain',
-  enable_starttls_auto: true  }
-  config.action_mailer.delivery_method = :smtp
+  }
 
   config.serve_static_assets = false
 
