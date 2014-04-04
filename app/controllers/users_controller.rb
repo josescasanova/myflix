@@ -15,7 +15,7 @@ class UsersController < ApplicationController
         invitation.inviter.follow(@user)
         invitation.update_column(:token, nil)
       end
-      AppMailer.delay.send_welcome_email(@user)
+      AppMailer.delay.send_welcome_email(staging_or_production_email)
       redirect_to sign_in_path
     else
       render :new
@@ -42,6 +42,10 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :full_name)
+  end
+
+  def staging_or_production_email
+    Rails.env.staging? ? "josescasanova@gmail.com" : "@user"
   end
 end
   
