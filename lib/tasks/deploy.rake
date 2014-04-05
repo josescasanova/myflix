@@ -10,7 +10,7 @@ namespace :deploy do
 
   desc 'Deploy app in production environment'
   task :production do
-    deployment = Paratrooper::Deploy.new("myflix-jc-production"), tag: 'production'
+    deployment = Paratrooper::Deploy.new("myflix-jc-production", tag: 'production')
 
     deployment.deploy
   end
