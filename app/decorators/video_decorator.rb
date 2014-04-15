@@ -2,6 +2,7 @@ class VideoDecorator < Draper::Decorator
   delegate_all
 
   def rating
-    object.reviews.first.present? ? "#{object.rating}/5.0" : "N/A"
+    # object.rating.first.present? ? "#{object.rating}/5.0" : "N/A"
+    # fix this
   end
 end
