@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.stripe.com/v1/tokens
     body:
       encoding: US-ASCII
-      string: card[number]=4000000000000002&card[exp_month]=4&card[exp_year]=2015&card[cvc]=314
+      string: card[number]=4000000000000002&card[exp_month]=6&card[exp_year]=2018&card[cvc]=314
     headers:
       Accept:
       - '*/*; q=0.5, application/xml'
@@ -31,15 +31,15 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Sat, 12 Apr 2014 01:35:59 GMT
+      - Tue, 15 Apr 2014 21:01:41 GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
       - '570'
-      Access-Control-Allow-Credentials:
-      - 'true'
       Cache-Control:
       - no-cache, no-store
+      Access-Control-Allow-Credentials:
+      - 'true'
       Access-Control-Max-Age:
       - '300'
       Access-Control-Allow-Methods:
@@ -50,19 +50,19 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_103pvv27wYrAQOnH59KDu4uw",
+          "id": "tok_103rMP27wYrAQOnHAxQHpH4z",
           "livemode": false,
-          "created": 1397266558,
+          "created": 1397595701,
           "used": false,
           "object": "token",
           "type": "card",
           "card": {
-            "id": "card_103pvv27wYrAQOnHXjj8KH9W",
+            "id": "card_103rMP27wYrAQOnHiVVhkkbp",
             "object": "card",
             "last4": "0002",
             "type": "Visa",
-            "exp_month": 4,
-            "exp_year": 2015,
+            "exp_month": 6,
+            "exp_year": 2018,
             "fingerprint": "v2VeHHGIHahXU4dQ",
             "customer": null,
             "country": "US",
@@ -76,13 +76,13 @@ http_interactions:
           }
         }
     http_version: 
-  recorded_at: Sat, 12 Apr 2014 01:35:59 GMT
+  recorded_at: Tue, 15 Apr 2014 21:01:41 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/charges
     body:
       encoding: US-ASCII
-      string: amount=999&currency=usd&card=tok_103pvv27wYrAQOnH59KDu4uw&description=an%20invalid%20charge
+      string: amount=999&currency=usd&card=tok_103rMP27wYrAQOnHAxQHpH4z&description=an%20invalid%20charge
     headers:
       Accept:
       - '*/*; q=0.5, application/xml'
@@ -108,19 +108,19 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Sat, 12 Apr 2014 01:35:59 GMT
+      - Tue, 15 Apr 2014 21:01:41 GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
       - '162'
+      Cache-Control:
+      - no-cache, no-store
+      Access-Control-Max-Age:
+      - '300'
       Access-Control-Allow-Credentials:
       - 'true'
       Access-Control-Allow-Methods:
       - GET, POST, HEAD, OPTIONS, DELETE
-      Access-Control-Max-Age:
-      - '300'
-      Cache-Control:
-      - no-cache, no-store
       Strict-Transport-Security:
       - max-age=31556926; includeSubDomains
     body:
@@ -131,9 +131,9 @@ http_interactions:
             "message": "Your card was declined.",
             "type": "card_error",
             "code": "card_declined",
-            "charge": "ch_103pvv27wYrAQOnHDvZ81L2e"
+            "charge": "ch_103rMP27wYrAQOnHANbMYsRQ"
           }
         }
     http_version: 
-  recorded_at: Sat, 12 Apr 2014 01:35:59 GMT
+  recorded_at: Tue, 15 Apr 2014 21:01:42 GMT
 recorded_with: VCR 2.9.0
