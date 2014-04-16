@@ -1,62 +1,59 @@
 require 'spec_helper'
 
-describe "Create payment on successful charge" do
+describe "Create payment on successful charge", :vcr do
   let(:event_data) do
-        {
-      id: "ch_103rgh27wYrAQOnHOhYJmAjy",
-      created: 1397671183,
-      livemode: false,
-      type: "charge.succeeded",
-      data: {
-        object: {
-          id: "ch_103rgh27wYrAQOnHOhYJmAjy",
-          object: "charge",
-          created: 1397671183,
-          livemode: false,
-          paid: true,
-          amount: 999,
-          currency: "usd",
-          refunded: false,
-          card: {
-            id: "card_103rgh27wYrAQOnHMEEvf9LF",
-            object: "card",
-            last4: "4242",
-            type: "Visa",
-            exp_month: 4,
-            exp_year: 2014,
-            fingerprint: "v5aIbtpRE6eDf9H7",
-            customer: "cus_3rghTyx75cZsQq",
-            country: "US",
-            name: nil,
-            address_line1: nil,
-            address_line2: nil,
-            address_city: nil,
-            address_state: nil,
-            address_zip: nil,
-            address_country: nil,
-            cvc_check: "pass",
-            address_line1_check: nil,
-            address_zip_check: nil
+    {
+      "created" => 1326853478,
+      "livemode" => false,
+      "id" => "evt_00000000000000",
+      "type" => "charge.succeeded",
+      "object" => "event",
+      "request" => nil,
+      "data" => {
+        "object" => {
+          "id" => "ch_00000000000000",
+          "object" => "charge",
+          "created" => 1397685677,
+          "livemode" => false,
+          "paid" => true,
+          "amount" => 999,
+          "currency" => "usd",
+          "refunded" => false,
+          "card" => {
+            "id" => "card_00000000000000",
+            "object" => "card",
+            "last4" => "4242",
+            "type" => "Visa",
+            "exp_month" => 4,
+            "exp_year" => 2016,
+            "fingerprint" => "v5aIbtpRE6eDf9H7",
+            "customer" => "cus_00000000000000",
+            "country" => "US",
+            "name" => nil,
+            "address_line1" => nil,
+            "address_line2" => nil,
+            "address_city" => nil,
+            "address_state" => nil,
+            "address_zip" => nil,
+            "address_country" => nil,
+            "cvc_check" => "pass",
+            "address_line1_check" => nil,
+            "address_zip_check" => nil
           },
-          captured: true,
-          refunds: [
-
-          ],
-          balance_transaction: "txn_103rgh27wYrAQOnHbsjwh7QK",
-          failure_message: nil,
-          failure_code: nil,
-          amount_refunded: 0,
-          customer: "cus_3rghTyx75cZsQq",
-          invoice: "in_103rgh27wYrAQOnHpuSZSfGd",
-          description: nil,
-          dispute: nil,
-          metadata: {},
-          statement_description: "Monthly MyFLiX"
+          "captured" => true,
+          "refunds" => [],
+          "balance_transaction" => "txn_00000000000000",
+          "failure_message" => nil,
+          "failure_code" => nil,
+          "amount_refunded" => 0,
+          "customer" => "cus_00000000000000",
+          "invoice" => "in_00000000000000",
+          "description" => nil,
+          "dispute" => nil,
+          "metadata" => {},
+          "statement_description" => nil
         }
-      },
-      object: "event",
-      pending_webhooks: 1,
-      request: "iar_3l6BKbMvzMDb4s"
+      }
     }
   end
 
@@ -66,20 +63,20 @@ describe "Create payment on successful charge" do
   end
 
   it "creates the payment associated with user", :vcr do
-    alice = Fabricate(:user, customer_token: "cus_3rfcWqZZtGOeqp")
+    alice = Fabricate(:user, customer_token: "cus_00000000000000")
     post "/stripe_events", event_data
     expect(Payment.first.user).to eq(alice)
   end
 
   it "creates the payment with the amount", :vcr do
-    alice = Fabricate(:user, customer_token: "cus_3rfcWqZZtGOeqp")
+    alice = Fabricate(:user, customer_token: "cus_00000000000000")
     post "/stripe_events", event_data
     expect(Payment.first.amount).to eq(999)
   end
 
   it "creates the payment with reference_id", :vcr do
-    alice = Fabricate(:user, customer_token: "cus_3rfcWqZZtGOeqp")
+    alice = Fabricate(:user, customer_token: "cus_00000000000000")
     post "/stripe_events", event_data
-    expect(Payment.first.reference_id).to eq("ch_103rfc27wYrAQOnHm6NN40m7")
+    expect(Payment.first.reference_id).to eq("v5aIbtpRE6eDf9H7")
   end
 end

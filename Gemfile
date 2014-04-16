@@ -22,7 +22,7 @@ group :test do
   gem "vcr", "~> 2.9"
   gem "webmock", "~> 1.11"
   gem "selenium-webdriver", "~> 2.41"
-  gem 'database_cleaner'
+  gem "database_cleaner", "~> 1.2"
 end
 
 group :production do
@@ -49,6 +49,6 @@ gem "carrierwave", "~> 0.10"
 gem "mini_magick", "~> 3.7"
 gem "fog", "~> 1.21"
 gem "stripe", "~> 1.10"
-gem "stripe_event"
+gem "stripe_event", "~> 1.1"
 gem "figaro", "~> 0.7"
-gem "draper"
+gem "draper", "~> 1.3"
