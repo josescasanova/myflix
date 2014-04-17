@@ -34,14 +34,14 @@ http_interactions:
       - application/json;charset=utf-8
       Content-Length:
       - '1456'
-      Access-Control-Allow-Methods:
-      - GET, POST, HEAD, OPTIONS, DELETE
+      Cache-Control:
+      - no-cache, no-store
       Access-Control-Max-Age:
       - '300'
       Access-Control-Allow-Credentials:
       - 'true'
-      Cache-Control:
-      - no-cache, no-store
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
       Strict-Transport-Security:
       - max-age=31556926; includeSubDomains
     body:

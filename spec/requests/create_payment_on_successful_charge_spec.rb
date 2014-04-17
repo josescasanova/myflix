@@ -3,31 +3,29 @@ require 'spec_helper'
 describe "Create payment on successful charge", :vcr do
   let(:event_data) do
     {
-      "created" => 1326853478,
+      "id" => "evt_103rpP27wYrAQOnHaM5w2erQ",
+      "created" => 1397703584,
       "livemode" => false,
-      "id" => "evt_00000000000000",
       "type" => "charge.succeeded",
-      "object" => "event",
-      "request" => nil,
       "data" => {
         "object" => {
-          "id" => "ch_00000000000000",
+          "id" => "ch_103rpP27wYrAQOnHV9wI5USC",
           "object" => "charge",
-          "created" => 1397685677,
+          "created" => 1397703584,
           "livemode" => false,
           "paid" => true,
           "amount" => 999,
           "currency" => "usd",
           "refunded" => false,
           "card" => {
-            "id" => "card_00000000000000",
+            "id" => "card_103rpP27wYrAQOnHGtVqKqtK",
             "object" => "card",
             "last4" => "4242",
             "type" => "Visa",
             "exp_month" => 4,
-            "exp_year" => 2016,
+            "exp_year" => 2017,
             "fingerprint" => "v5aIbtpRE6eDf9H7",
-            "customer" => "cus_00000000000000",
+            "customer" => "cus_3rpPs9u5lEgj71",
             "country" => "US",
             "name" => nil,
             "address_line1" => nil,
@@ -41,42 +39,48 @@ describe "Create payment on successful charge", :vcr do
             "address_zip_check" => nil
           },
           "captured" => true,
-          "refunds" => [],
-          "balance_transaction" => "txn_00000000000000",
+          "refunds" => [
+
+          ],
+          "balance_transaction" => "txn_103rpP27wYrAQOnHwr8RYbmo",
           "failure_message" => nil,
           "failure_code" => nil,
           "amount_refunded" => 0,
-          "customer" => "cus_00000000000000",
-          "invoice" => "in_00000000000000",
+          "customer" => "cus_3rpPs9u5lEgj71",
+          "invoice" => "in_103rpP27wYrAQOnHLtgNIGIE",
           "description" => nil,
           "dispute" => nil,
-          "metadata" => {},
+          "metadata" => {
+          },
           "statement_description" => nil
         }
-      }
+      },
+      "object" => "event",
+      "pending_webhooks" => 1,
+      "request" => "iar_3rpPtXGAnEa28N"
     }
   end
 
   it "creates a payment with the webhook from stripe for charge succeeded", :vcr do 
-    post "/stripe_events", event_data
+    post "/stripe", event_data
     expect(Payment.count).to eq(1)
   end
 
   it "creates the payment associated with user", :vcr do
-    alice = Fabricate(:user, customer_token: "cus_00000000000000")
-    post "/stripe_events", event_data
+    alice = Fabricate(:user, customer_token: "cus_3rpPs9u5lEgj71")
+    post "/stripe", event_data
     expect(Payment.first.user).to eq(alice)
   end
 
   it "creates the payment with the amount", :vcr do
-    alice = Fabricate(:user, customer_token: "cus_00000000000000")
-    post "/stripe_events", event_data
+    alice = Fabricate(:user, customer_token: "cus_3rpPs9u5lEgj71")
+    post "/stripe", event_data
     expect(Payment.first.amount).to eq(999)
   end
 
   it "creates the payment with reference_id", :vcr do
-    alice = Fabricate(:user, customer_token: "cus_00000000000000")
-    post "/stripe_events", event_data
-    expect(Payment.first.reference_id).to eq("v5aIbtpRE6eDf9H7")
+    alice = Fabricate(:user, customer_token: "cus_3rpPs9u5lEgj71")
+    post "/stripe", event_data
+    expect(Payment.first.reference_id).to eq("in_103rpP27wYrAQOnHLtgNIGIE")
   end
 end
