@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.stripe.com/v1/events/evt_103rpP27wYrAQOnHaM5w2erQ
+    uri: https://api.stripe.com/v1/events/evt_103s3l27wYrAQOnHe6dxw2WM
     body:
       encoding: US-ASCII
       string: ''
@@ -29,48 +29,48 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Thu, 17 Apr 2014 18:33:27 GMT
+      - Thu, 17 Apr 2014 18:33:03 GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
-      - '1456'
-      Access-Control-Allow-Methods:
-      - GET, POST, HEAD, OPTIONS, DELETE
-      Access-Control-Max-Age:
-      - '300'
+      - '1449'
       Access-Control-Allow-Credentials:
       - 'true'
       Cache-Control:
       - no-cache, no-store
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Max-Age:
+      - '300'
       Strict-Transport-Security:
       - max-age=31556926; includeSubDomains
     body:
       encoding: UTF-8
       string: |
         {
-          "id": "evt_103rpP27wYrAQOnHaM5w2erQ",
-          "created": 1397703584,
+          "id": "evt_103s3l27wYrAQOnHe6dxw2WM",
+          "created": 1397757000,
           "livemode": false,
-          "type": "charge.succeeded",
+          "type": "charge.failed",
           "data": {
             "object": {
-              "id": "ch_103rpP27wYrAQOnHV9wI5USC",
+              "id": "ch_103s3l27wYrAQOnHJxaWVVT5",
               "object": "charge",
-              "created": 1397703584,
+              "created": 1397757000,
               "livemode": false,
-              "paid": true,
+              "paid": false,
               "amount": 999,
               "currency": "usd",
               "refunded": false,
               "card": {
-                "id": "card_103rpP27wYrAQOnHGtVqKqtK",
+                "id": "card_103s3l27wYrAQOnHg9ewI4ES",
                 "object": "card",
-                "last4": "4242",
+                "last4": "0341",
                 "type": "Visa",
                 "exp_month": 4,
                 "exp_year": 2017,
-                "fingerprint": "v5aIbtpRE6eDf9H7",
-                "customer": "cus_3rpPs9u5lEgj71",
+                "fingerprint": "tyQ3sUa8vvxX2XTd",
+                "customer": "cus_3s2xX2cY3NV2ed",
                 "country": "US",
                 "name": null,
                 "address_line1": null,
@@ -83,24 +83,24 @@ http_interactions:
                 "address_line1_check": null,
                 "address_zip_check": null
               },
-              "captured": true,
+              "captured": false,
               "refunds": [],
-              "balance_transaction": "txn_103rpP27wYrAQOnHwr8RYbmo",
-              "failure_message": null,
-              "failure_code": null,
+              "balance_transaction": null,
+              "failure_message": "Your card was declined.",
+              "failure_code": "card_declined",
               "amount_refunded": 0,
-              "customer": "cus_3rpPs9u5lEgj71",
-              "invoice": "in_103rpP27wYrAQOnHLtgNIGIE",
-              "description": null,
+              "customer": "cus_3s2xX2cY3NV2ed",
+              "invoice": null,
+              "description": "payment to fail",
               "dispute": null,
               "metadata": {},
               "statement_description": null
             }
           },
           "object": "event",
-          "pending_webhooks": 0,
-          "request": "iar_3rpPtXGAnEa28N"
+          "pending_webhooks": 1,
+          "request": "iar_3s3lFT2ndeOkTz"
         }
     http_version: 
-  recorded_at: Thu, 17 Apr 2014 18:33:27 GMT
+  recorded_at: Thu, 17 Apr 2014 18:33:03 GMT
 recorded_with: VCR 2.9.0
